@@ -141,7 +141,7 @@ public class MathApplicationTester {
     }
 
     @Test
-    public void shouldReplyFromACallback () {
+    public void shouldReplyFromACallback ()     {
         //add the behavior to add numbers
         when(calcService.add(20.0, 10.0)).thenAnswer(new Answer<Double>() {
             @Override
@@ -179,8 +179,9 @@ public class MathApplicationTester {
     @Test (expected = RuntimeException.class)
     public void shouldTestExceptionUsingAnnotations(){
         //given(calcService.add(10.0, 20.0)).willThrow(new RuntimeException("I cannot add!"));
+//        doThrow(new RuntimeException("WOOO")).when(calcService.add(10.0,20.0));
         //when(calcService.add(10.0, 20.0)).thenThrow(new RuntimeException("I cannot add!"));
-        doThrow(new RuntimeException("WOOO")).when(calcService.add(10.0,20.0));
+
 
         assertEquals(mathApplication.add(10.0, 20.0),30.0,0);
 
@@ -232,12 +233,14 @@ public class MathApplicationTester {
         // useful when the argument to capture is a nasty generic class and you want to avoid compiler warnings
         when(calcService.square(anyInt())).thenReturn(100);
         assertEquals(100, mathApplication.square(10));
+
         verify(calcService).square(argumentCaptor.capture());
         assertEquals((Integer)10, argumentCaptor.getValue());
 
         reset(calcService);
         when(calcService.square(anyInt())).thenReturn(100);
         assertEquals(100, mathApplication.plusOneThenSquare(10));
+
         verify(calcService).square(argumentCaptor.capture());
         assertEquals((Integer)11, argumentCaptor.getValue());
     }
