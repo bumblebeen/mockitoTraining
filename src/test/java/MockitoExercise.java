@@ -5,6 +5,9 @@ import org.mockito.InOrder;
 import org.mockito.internal.util.MockUtil;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.BDDMockito.*;
@@ -118,6 +121,42 @@ public class MockitoExercise {
 
         mathApplication.divide(10.0, 0.0);
         then(calculatorService).should().divide(10.0,0.0);
+    }
+
+    @Test
+    public void removeRecordOfKilledPersons () {
+        // Make the HITMAN invisible by removing the number of killed persons
+        // from the police even if he already killed so many
+        HitMan hm = new HitMan();
+        hm.kill("Jollibee");
+        hm.kill("McDonalds");
+
+        assertEquals(2, hm.getKilledPersons());
+
+        HitMan hiddenHitman = hm;
+        hiddenHitman.kill("Kentucky");
+        hiddenHitman.kill("Razon");
+
+        // DO NOT MODIFY BELOW THIS LINE
+        assertEquals(0, hiddenHitman.getKilledPersons());
+        assertEquals(4, hiddenHitman.getActualKilledPersons());
+    }
+
+    class HitMan {
+        public List<String> killedPersons;
+        HitMan() { killedPersons = new ArrayList<>(); }
+        public String kill (String name) {
+            String wayOfKilling = "Strangled";
+            killedPersons.add(name);
+            if(name.length() > 5) wayOfKilling = "Shot";
+            return wayOfKilling + " " + name;
+        }
+        public int getKilledPersons () {
+            return killedPersons.size();
+        }
+        public int getActualKilledPersons () {
+            return killedPersons.size();
+        }
     }
 
     class MyLogger {
