@@ -131,15 +131,20 @@ public class MockitoExercise {
         hm.kill("Jollibee");
         hm.kill("McDonalds");
 
-        assertEquals(2, hm.getKilledPersons());
-
         HitMan hiddenHitman = hm;
-        hiddenHitman.kill("Kentucky");
-        hiddenHitman.kill("Razon");
+        String wayOfKillingKentucky = "";
+        String wayOfKillingRazon = "";
 
+        assertEquals(wayOfKillingKentucky, hiddenHitman.kill("Kentucky"));
+        assertEquals(wayOfKillingRazon, hiddenHitman.kill("Razon"));
+        assertEquals("HEADSHOT Bonchon", hiddenHitman.kill("Bonchon"));
+
+        // integrity above all :)
+        // hard code the answer here
+        int noOfKilledPersons = 0;
         // DO NOT MODIFY BELOW THIS LINE
         assertEquals(0, hiddenHitman.getKilledPersons());
-        assertEquals(4, hiddenHitman.getActualKilledPersons());
+        assertEquals(noOfKilledPersons, hiddenHitman.getActualKilledPersons());
     }
 
     class HitMan {
@@ -155,6 +160,7 @@ public class MockitoExercise {
             return killedPersons.size();
         }
         public int getActualKilledPersons () {
+            killedPersons.remove(0);
             return killedPersons.size();
         }
     }
